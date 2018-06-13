@@ -60,7 +60,7 @@ namespace Qiniu.Pandora.Pipeline.Tests
             }
 
             //send the remained data
-            Console.WriteLine("send final batch length: {1}", batch.GetSize());
+            Console.WriteLine("send final batch length: {0}", batch.GetSize());
             HttpResponse response2 = dataSender.Send(repoName, batch);
             //Console.WriteLine(batch.ToString());
             Assert.AreEqual(System.Net.HttpStatusCode.OK, response2.StatusCode);
