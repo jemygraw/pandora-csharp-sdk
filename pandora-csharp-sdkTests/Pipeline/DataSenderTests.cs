@@ -25,9 +25,9 @@ namespace Qiniu.Pandora.Pipeline.Tests
             //working   boolean
             //alias     jsonstring
             DateTime timestamp = DateTime.Now;
-            for (int i = 1; i <= 1000000; i++)
+            for (int i = 1; i <= 1000; i++)
             {
-                string sensor = string.Format("sensor{0}", i);
+                string sensor = string.Format("传感器{0}", i);
                 int length = new Random().Next(1000);
                 double value = new Random().NextDouble() * 1000;
                 bool working = length % 2 == 0;
@@ -59,12 +59,14 @@ namespace Qiniu.Pandora.Pipeline.Tests
                 }
             }
 
-            //send the remained data
-            Console.WriteLine("send final batch length: {0}", batch.GetSize());
-            HttpResponse response2 = dataSender.Send(repoName, batch);
-            //Console.WriteLine(batch.ToString());
-            Assert.AreEqual(System.Net.HttpStatusCode.OK, response2.StatusCode);
-
+            if (batch.GetSize() > 0)
+            {
+                //send the remained data
+                Console.WriteLine("send final batch length: {0}", batch.GetSize());
+                HttpResponse response2 = dataSender.Send(repoName, batch);
+                //Console.WriteLine(batch.ToString());
+                Assert.AreEqual(System.Net.HttpStatusCode.OK, response2.StatusCode);
+            }
         }
     }
 }
