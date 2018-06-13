@@ -8,7 +8,7 @@ namespace Qiniu.Pandora.Pipeline
     public class Point
     {
         //max point size
-        public const int MaxPointSize = 1 * 1024 * 1204;
+        public const int MaxPointSize = 1 * 1024 * 1024;
         private List<Field> fields = new List<Field>();
         private int size;
         public void Append(string key, DateTime dateTime)

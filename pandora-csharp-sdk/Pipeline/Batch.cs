@@ -5,7 +5,7 @@ namespace Qiniu.Pandora.Pipeline
 {
     public class Batch
     {
-        public const int MaxBatchSize = 2 * 1024 * 1204;
+        public const int MaxBatchSize = 2 * 1024 * 1024;
         public List<Point> points = new List<Point>();
         private int maxSize = MaxBatchSize;
         private int size;
