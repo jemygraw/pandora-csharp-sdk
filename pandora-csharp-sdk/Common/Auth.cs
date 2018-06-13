@@ -1,12 +1,15 @@
 ﻿using Qiniu.Pandora.Http;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace Qiniu.Pandora.Common
 {
+    /// <summary>
+    /// Auth provides the token-signing implementation in Pandora
+    /// See doc at https://qiniu.github.io/pandora-docs/#/ak?id=token%E7%AD%BE%E5%90%8D%E5%8C%85%E5%90%AB%E7%9A%84%E5%86%85%E5%AE%B9
+    /// </summary>
     public class Auth
     {
         private string accessKey;
@@ -19,7 +22,7 @@ namespace Qiniu.Pandora.Common
         }
         /// <summary>
         /// SignRequest signs the request in the algorithm of Pandora
-        /// see doc here at: https://qiniu.github.io/pandora-docs/#/ak?id=token%E7%AD%BE%E5%90%8D%E5%8C%85%E5%90%AB%E7%9A%84%E5%86%85%E5%AE%B9
+        /// see doc here at
         /// </summary>
         /// <param name="url"></param>
         /// <param name="method"></param>
@@ -90,43 +93,23 @@ namespace Qiniu.Pandora.Common
             return encodedSign(data);
         }
 
-        /// <summary>
-        /// 签名-字节数据
-        /// </summary>
-        /// <param name="data">待签名的数据</param>
-        /// <returns></returns>
         public string Sign(byte[] data)
         {
             return string.Format("{0}:{1}", this.accessKey, encodedSign(data));
         }
 
-        /// <summary>
-        /// 签名-字符串数据
-        /// </summary>
-        /// <param name="str">待签名的数据</param>
-        /// <returns></returns>
         public string Sign(string str)
         {
             byte[] data = Encoding.UTF8.GetBytes(str);
             return Sign(data);
         }
 
-        /// <summary>
-        /// 附带数据的签名
-        /// </summary>
-        /// <param name="data">待签名的数据</param>
-        /// <returns></returns>
         public string SignWithData(byte[] data)
         {
             string encodedData = Base64.UrlSafeBase64Encode(data);
             return string.Format("{0}:{1}:{2}", this.accessKey, encodedSign(encodedData), encodedData);
         }
 
-        /// <summary>
-        /// 附带数据的签名
-        /// </summary>
-        /// <param name="str">待签名的数据</param>
-        /// <returns>签名结果</returns>
         public string SignWithData(string str)
         {
             byte[] data = Encoding.UTF8.GetBytes(str);
