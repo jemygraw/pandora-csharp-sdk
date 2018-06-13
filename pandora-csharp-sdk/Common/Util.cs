@@ -36,7 +36,12 @@ namespace Qiniu.Pandora.Common
 
         public static string CreateRFC3339DateTime(DateTime dateTime)
         {
-            return dateTime.ToString("yyyy-MM-dd'T'HH:mm:ssZ");
+            return dateTime.ToString("yyyy-MM-dd'T'HH:mm:ss.fffzzz");
+        }
+
+        public static DateTime FromRFC3339DateTime(string dateTimeStr)
+        {
+            return DateTime.Parse(dateTimeStr);
         }
 
     }
